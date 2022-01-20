@@ -1,0 +1,12 @@
+<app-header>
+    <app-button buttonText="Show course"></app-button>
+    <app-button [iconName]="faEdit"></app-button>
+    <app-button [iconName]="faTrash"></app-button>
+</app-header>
+<app-courses *ngIf="courseList.length; else infoBlock" [courses]="courseList"></app-courses>
+
+<ng-template #infoBlock>
+    <app-info infoTitle="Your list is empty">
+        <app-button buttonText="Add new course"></app-button>
+    </app-info>
+</ng-template>

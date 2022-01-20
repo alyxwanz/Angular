@@ -1,0 +1,6 @@
+<button (click)="handleClick()">
+    <div  *ngIf="buttonText">{{buttonText}}</div>
+    <div  *ngIf="iconName">
+        <fa-icon [icon]="iconName"></fa-icon>
+    </div>
+</button>

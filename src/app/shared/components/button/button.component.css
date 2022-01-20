@@ -1,0 +1,17 @@
+button {
+    background: transparent;
+    border: 2px solid transparent;
+}
+
+button:hover {
+    border: 2px solid #7d2ecf;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
+
+button:focus {
+    border: 2px solid #7d2ecf;
+}

@@ -1,0 +1,18 @@
+<div *ngIf="courseCard" class="course-card">
+    <h2 class="course-title">
+        {{courseCard.title}}
+    </h2>
+    <p class="course-description">
+        {{courseCard.description}}
+    </p>
+    <span class="course-creation-date">
+        Created: {{courseCard.creationDate | date:'d.MM.yyyy'}}
+    </span>
+    <span class="course-duration">
+        Duration: {{transformDuration(courseCard.duration)}}
+    </span>
+    <span class="course-author">
+        Authors: {{courseCard.authors}}
+    </span>
+    <ng-content class="course-btn"></ng-content>
+</div>
