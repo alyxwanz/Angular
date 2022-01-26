@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { CourseCard } from '../../ mock';
 import { faCoffee, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,6 +13,7 @@ export class CoursesComponent implements OnInit {
   faCoffee = faCoffee;
   faEdit = faEdit;
   faTrash = faTrash;
+  placeholder = 'What are you looking for?'
   constructor() {}
 
   ngOnInit(): void {}
@@ -27,5 +28,9 @@ export class CoursesComponent implements OnInit {
 
   onDelete() {
     console.log('Delete button was clicked');
+  }
+
+  onSearch(searchRequest: string) {
+    console.log(searchRequest);
   }
 }
