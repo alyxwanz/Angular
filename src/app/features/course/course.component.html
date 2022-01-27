@@ -9,7 +9,7 @@
         Created: {{courseCard.creationDate | date:'d.MM.yyyy'}}
     </span>
     <span class="course-duration">
-        Duration: {{transformDuration(courseCard.duration)}}
+        Duration: {{courseCard.duration | duration}}
     </span>
     <span class="course-author">
         Authors: {{courseCard.authors}}
