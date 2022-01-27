@@ -16,6 +16,7 @@
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password" required name="password">
+        <input type="password" class="form-control" id="password" formControlName="password" required name="password" appPasswordToggle #appPasswordToggle="appPasswordToggle">
+        <button (click)="appPasswordToggle.onClick()">Password toggle</button>
     </div>
 </form>

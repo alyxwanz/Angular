@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DurationPipe } from './pipes/duration.pipe';
 import { CreationDatePipe } from './pipes/creation-date.pipe';
 import { StringJoinerPipe } from './pipes/string-joiner.pipe';
+import { PasswordToggleDirective } from './directives/password-toggle.directive';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -19,10 +20,12 @@ const COMPONENTS = [
   EmailValidatorDirective,
   DurationPipe,
   CreationDatePipe,
+  StringJoinerPipe,
+  PasswordToggleDirective
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, StringJoinerPipe],
+  declarations: [...COMPONENTS],
   imports: [CommonModule, FormsModule, FontAwesomeModule],
   exports: [...COMPONENTS],
 })
