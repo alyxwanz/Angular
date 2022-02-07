@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './features/registration/registration.component';
@@ -15,6 +15,8 @@ import { CoursesComponent } from './features/courses/courses.component';
 import { CourseComponent } from './features/course/course.component';
 import { AuthorizedGuard } from './auth/guards/authorized.guard';
 import { NotAuthorizedGuard } from './auth/guards/not-authorized.guard';
+import { InterceptorInterceptor } from './auth/interceptors/interceptor.interceptor';
+import { AdminGuard } from './user/guards/admin.guard';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
@@ -32,23 +34,21 @@ const routes: Routes = [
     path: 'courses',
     component: CoursesComponent,
     canLoad: [AuthorizedGuard],
-    children: [
-      {
-        path: 'edit/:id',
-        component: CourseEditComponent,
-        canLoad: [AuthorizedGuard],
-      },
-      {
-        path: 'courses/:id',
-        component: CourseComponent,
-        canLoad: [AuthorizedGuard],
-      },
-      {
-        path: 'courses/add',
-        component: CourseEditComponent,
-        canLoad: [AuthorizedGuard],
-      },
-    ],
+  },
+  {
+    path: 'courses/edit/:id',
+    component: CourseEditComponent,
+    canLoad: [AuthorizedGuard, AdminGuard],
+  },
+  {
+    path: 'courses/:id',
+    component: CourseEditComponent,
+    canLoad: [AuthorizedGuard],
+  },
+  {
+    path: 'courses/add',
+    component: CourseEditComponent,
+    canLoad: [AuthorizedGuard, AdminGuard],
   },
   { path: '', redirectTo: '/courses', pathMatch: 'full' },
 ];
@@ -67,7 +67,16 @@ const routes: Routes = [
     // FontAwesomeModule,
     // NgbModule
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard],
+  providers: [
+    AuthorizedGuard,
+    NotAuthorizedGuard,
+    AdminGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

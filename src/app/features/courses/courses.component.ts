@@ -1,6 +1,9 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { CourseCard } from '../../ mock';
+import { Component, OnInit } from '@angular/core';
+import { CourseCard, COURSE_LIST } from '../../ mock';
 import { faCoffee, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CoursesService } from 'src/app/services/courses.service';
+import { map, take } from 'rxjs/operators';
+import { CoursesStoreService } from 'src/app/services/courses-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -8,15 +11,28 @@ import { faCoffee, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  @Input() courses!: CourseCard[];
-  @Input() isEditable!: boolean;
+  isEditable = false;
+  courses$ = this.coursesStoreService.courses$.pipe(
+    map((courses) =>
+      courses.map(
+        (course) =>
+          ({
+            ...course,
+            creationDate: new Date(course.creationDate),
+          } as CourseCard)
+      )
+    )
+  );
+
   faCoffee = faCoffee;
   faEdit = faEdit;
   faTrash = faTrash;
-  placeholder = 'What are you looking for?'
-  constructor() {}
+  placeholder = 'What are you looking for?';
+  constructor(private coursesStoreService: CoursesStoreService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.coursesStoreService.getAll().pipe(take(1)).subscribe();
+  }
 
   onNotify() {
     console.log('Show course button was clicked');

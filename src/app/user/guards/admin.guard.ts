@@ -7,25 +7,24 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
+import { tap } from 'rxjs/operators';
+import { UserStoreService } from '../services/user-store.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NotAuthorizedGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+export class AdminGuard implements CanActivate {
+  constructor(private userService: UserStoreService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
-    return this.authService.isAuthorized$.pipe(
+    return this.userService.isAdmin$.pipe(
       tap((value) => {
-        if (value === true) {
+        if (value === false) {
           this.router.navigate(['/courses']);
         }
-      }),
-      map((value)=> !value)
+      })
     );
   }
 }

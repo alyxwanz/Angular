@@ -13,4 +13,3 @@ export interface Course {
 }
 
 export type CourseCreate = Omit<Course, 'id' | 'creationDate'>;
-

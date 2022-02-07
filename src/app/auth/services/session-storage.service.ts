@@ -6,15 +6,15 @@ import { Injectable } from '@angular/core';
 export class SessionStorageService {
   private readonly KEY = 'TOKEN_KEY';
 
-  constructor(private window: Window) {}
+  constructor() {}
 
   setToken(token: string) {
-    this.window.sessionStorage.setItem(this.KEY, token);
+    sessionStorage.setItem(this.KEY, token);
   }
   getToken(): string {
-    return this.window.sessionStorage.getItem(this.KEY) || '';
+    return sessionStorage.getItem(this.KEY) || '';
   }
   deleteToken() {
-    this.window.sessionStorage.removeItem(this.KEY);
+    sessionStorage.removeItem(this.KEY);
   }
 }
