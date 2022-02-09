@@ -1,32 +1,33 @@
-<hr>
-<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="name" class="form-control" id="name" name="name" #nameControl="ngModel" required
-            [(ngModel)]="name">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" #emailControl="ngModel" required
-            [(ngModel)]="email" appEmailValidator>
-        <span *ngIf="(loginForm.submitted || 
-            emailControl.touched || 
-            emailControl.dirty) 
-            && emailControl.errors?.invalidEmail">{{emailControl.errors?.invalidEmail}}
-        </span>
-        <span *ngIf="(loginForm.submitted || 
-            emailControl.touched || 
-            emailControl.dirty) 
-            && emailControl.errors?.required">Email is required
-        </span>
-    </div>
+<div class="border border-info d-grid justify-content-center">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name" #nameControl="ngModel" required
+                [(ngModel)]="name">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" #emailControl="ngModel" required
+                [(ngModel)]="email" appEmailValidator>
+            <span *ngIf="(loginForm.submitted || 
+                emailControl.touched || 
+                emailControl.dirty) 
+                && emailControl.errors?.invalidEmail">{{emailControl.errors?.invalidEmail}}
+            </span>
+            <span *ngIf="(loginForm.submitted || 
+                emailControl.touched || 
+                emailControl.dirty) 
+                && emailControl.errors?.required">Email is required
+            </span>
+        </div>
 
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password">
-        <!-- <span *ngIf="(loginForm.submitted || 
-            password.touched || 
-            password.dirty) 
-            && emailControl.errors?.required">Email is required
-        </span> -->
-    </div>
-    <button type="submit">Submit</button>
-</form>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password">
+            <!-- <span *ngIf="(loginForm.submitted || 
+                password.touched || 
+                password.dirty) 
+                && emailControl.errors?.required">Email is required
+            </span> -->
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

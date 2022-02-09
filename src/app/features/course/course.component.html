@@ -1,18 +1,26 @@
-<div *ngIf="courseCard" class="course-card">
-    <h2 class="course-title">
-        {{courseCard.title}}
-    </h2>
-    <p class="course-description">
-        {{courseCard.description}}
-    </p>
-    <span class="course-creation-date">
-        Created: {{courseCard.creationDate | creationDate:'d.MM.yyyy'}}
-    </span>
-    <span class="course-duration">
-        Duration: {{courseCard.duration | duration}}
-    </span>
-    <span class="course-author">
-        Authors: {{courseCard.authors}}
-    </span>
-    <ng-content class="course-btn"></ng-content>
+<div *ngIf="courseCard" class="course-card p-3 border border-success mb-4">
+    <div class="wrapper-text">
+        <h2 class="course-title text-capitalize fw-bold lh-2">
+            {{courseCard.title}}
+        </h2>
+        <p class="course-description lh-2">
+            {{courseCard.description}}
+        </p>
+    </div>
+    <div class="wrapper-info">
+        <span class="course-creation-date lh-2">
+            <strong>Created:</strong> {{courseCard.creationDate | creationDate:'d.MM.yyyy'}}
+        </span>
+        <span class="course-duration lh-2">
+            <strong>Duration:</strong> {{courseCard.duration | duration}}
+        </span>
+        <span class="course-author lh-2">
+            <strong>Authors:</strong> {{courseCard.authors}}
+        </span>
+        <span class="course-button">
+            <ng-content></ng-content>
+        </span>
+    </div>
+
+
 </div>

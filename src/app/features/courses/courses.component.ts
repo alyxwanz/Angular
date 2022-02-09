@@ -27,7 +27,7 @@ export class CoursesComponent implements OnInit {
   faCoffee = faCoffee;
   faEdit = faEdit;
   faTrash = faTrash;
-  placeholder = 'What are you looking for?';
+  placeholder = 'Search...';
   constructor(private coursesStoreService: CoursesStoreService) {}
 
   ngOnInit(): void {
