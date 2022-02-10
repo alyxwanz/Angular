@@ -1,9 +1,10 @@
 <app-search [searchRequest]="placeholder" (searchRequestEvent)="onSearch($event)"></app-search>
+<app-button buttonText="Add new course" [routerLink]="['/courses/add']"></app-button>
 <ng-container *ngIf="(courses$ | async)?.length else infoBlock">
     <div *ngFor="let course of courses$ | async" class="course-list">
         <app-course [courseCard]='course'>
-            <app-button buttonText="Show course" (notify)="onNotify()"></app-button>
-            <ng-container *ngIf="isEditable">
+            <app-button buttonText="Show course" (notify)="onDisplay(course.id)"></app-button>
+            <ng-container *ngIf="isAdmin$ | async">
                 <app-button [iconName]="faEdit" (notify)="onEdit()"></app-button>
                 <app-button [iconName]="faTrash" (notify)="onDelete()"></app-button>
             </ng-container>

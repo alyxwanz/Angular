@@ -8,14 +8,14 @@
         </p>
     </div>
     <div class="wrapper-info">
-        <span class="course-creation-date lh-2">
-            <strong>Created:</strong> {{courseCard.creationDate | creationDate:'d.MM.yyyy'}}
+        <span class="course-author lh-2">
+            <strong>Authors:</strong> {{courseCard.authors}}
         </span>
         <span class="course-duration lh-2">
             <strong>Duration:</strong> {{courseCard.duration | duration}}
         </span>
-        <span class="course-author lh-2">
-            <strong>Authors:</strong> {{courseCard.authors}}
+        <span class="course-creation-date lh-2">
+            <strong>Created:</strong> {{courseCard.creationDate | creationDate:'d.MM.yyyy'}}
         </span>
         <span class="course-button">
             <ng-content></ng-content>

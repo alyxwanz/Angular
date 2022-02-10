@@ -11,8 +11,14 @@
             Courses</a>
     </div>
     <div class="nav-menu col-md-3 text-end">
-        <ng-content></ng-content>
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <ng-container *ngIf="isAuthorized$ | async; else notAuthorizedBlock">
+            <span>{{name$ | async}}</span>
+            <button (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #notAuthorizedBlock>
+            <button type="button" class="btn btn-outline-primary me-2" [routerLink]="['/login']"
+                routerLinkActive="router-link-active">Login</button>
+            <button type="button" class="btn btn-primary" [routerLink]="['/registration']">Sign-up</button>
+        </ng-template>
     </div>
 </header>

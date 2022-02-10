@@ -11,6 +11,7 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CreationDatePipe } from './pipes/creation-date.pipe';
 import { StringJoinerPipe } from './pipes/string-joiner.pipe';
 import { PasswordToggleDirective } from './directives/password-toggle.directive';
+import { RouterModule } from '@angular/router';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -26,7 +27,7 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, RouterModule],
   exports: [...COMPONENTS],
 })
 export class SharedModule {}

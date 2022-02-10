@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseCard, COURSE_LIST } from '../../ mock';
+import { CourseCard } from '../../interface/courses-interface';
 import { faCoffee, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CoursesService } from 'src/app/services/courses.service';
 import { map, take } from 'rxjs/operators';
 import { CoursesStoreService } from 'src/app/services/courses-store.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -11,7 +14,7 @@ import { CoursesStoreService } from 'src/app/services/courses-store.service';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  isEditable = false;
+  isAdmin$: Observable<boolean> = this.userStoreService.isAdmin$;
   courses$ = this.coursesStoreService.courses$.pipe(
     map((courses) =>
       courses.map(
@@ -28,14 +31,18 @@ export class CoursesComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   placeholder = 'Search...';
-  constructor(private coursesStoreService: CoursesStoreService) {}
+  constructor(
+    private coursesStoreService: CoursesStoreService,
+    private router: Router,
+    private userStoreService: UserStoreService
+  ) {}
 
   ngOnInit(): void {
     this.coursesStoreService.getAll().pipe(take(1)).subscribe();
   }
 
-  onNotify() {
-    console.log('Show course button was clicked');
+  onDisplay(id: string) {
+    this.router.navigate(['/courses', id]);
   }
 
   onEdit() {

@@ -42,7 +42,7 @@
     grid-area: wrapper-info;
 }
 
-.course-creation-date {
+.course-author {
     grid-area: 1 / 1 / 2 / 2;
 }
 
@@ -50,7 +50,7 @@
     grid-area: 2 / 1 / 3 / 2;
 }
 
-.course-author {
+.course-creation-date{
     grid-area: 3 / 1 / 4 / 2;
 }
 

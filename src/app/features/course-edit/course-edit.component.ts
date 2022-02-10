@@ -7,6 +7,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Course } from 'src/app/interface/courses-interface';
+import { CoursesStoreService } from 'src/app/services/courses-store.service';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-course-edit',
@@ -16,17 +22,54 @@ import {
 export class CourseEditComponent implements OnInit {
   courseEditForm!: FormGroup;
   submitted = false;
+  course!: Course;
+  isAdmin$: Observable<boolean> = this.userStoreService.isAdmin$;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private coursesStoreService: CoursesStoreService,
+    private userStoreService: UserStoreService
+  ) {}
 
   ngOnInit(): void {
+    this.getCourse();
+  }
+
+  getCourse() {
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log('route:', id);
+    id &&
+      this.coursesStoreService
+        .getCourse(id)
+        .pipe(take(1))
+        .subscribe((res) => {
+          this.course = res;
+          this.editCourseInit(this.course);
+          this.checkIsAdmin();
+        });
+  }
+
+  editCourseInit(course: Course) {
     this.courseEditForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: [course.title, Validators.required],
+      description: [course.description, Validators.required],
       newAuthor: ['', [Validators.required, this.validateAuthor]],
-      duration: ['', [Validators.required, Validators.min(0)]],
+      duration: [course.duration, [Validators.required, Validators.min(0)]],
       authors: new FormArray([]),
     });
+  }
+
+  // initAuthors(authors) {
+
+  // }
+
+  checkIsAdmin() {
+    this.isAdmin$.pipe(take(1)).subscribe((res) => {
+      if(!res) {
+        this.courseEditForm.disable();
+      }
+    })
   }
 
   createAuthor(): void {

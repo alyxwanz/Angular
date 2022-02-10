@@ -6,6 +6,7 @@ import {
   Course,
   CourseCreate,
   CourseResponse,
+  CoursesResponse,
 } from '../interface/courses-interface';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class CoursesService {
 
   getAll(): Observable<Course[]> {
     return this.http
-      .get<CourseResponse>('http://localhost:3000/courses/all')
+      .get<CoursesResponse>('http://localhost:3000/courses/all')
       .pipe(map((res) => res.result));
   }
 
@@ -35,8 +36,10 @@ export class CoursesService {
     );
   }
 
-  getCourse(id: string) {
-    return this.http.get(`http://localhost:3000/courses/${id}`);
+  getCourse(id: string): Observable<Course> {
+    return this.http
+      .get<CourseResponse>(`http://localhost:3000/courses/${id}`)
+      .pipe(map((course) => course.result));
   }
 
   deleteCourse(id: string) {
