@@ -39,17 +39,27 @@ const routes: Routes = [
     path: 'courses/edit/:id',
     component: CourseEditComponent,
     canLoad: [AuthorizedGuard, AdminGuard],
-  },
-  {
-    path: 'courses/:id',
-    component: CourseEditComponent,
-    canLoad: [AuthorizedGuard],
+    data: {
+      page: "EDIT"
+    }
   },
   {
     path: 'courses/add',
     component: CourseEditComponent,
     canLoad: [AuthorizedGuard, AdminGuard],
+    data: {
+      page: "CREATE"
+    }
   },
+  {
+    path: 'courses/:id',
+    component: CourseEditComponent,
+    canLoad: [AuthorizedGuard],
+    data: {
+      page: "SHOW"
+    }
+  },
+  
   { path: '', redirectTo: '/courses', pathMatch: 'full' },
 ];
 

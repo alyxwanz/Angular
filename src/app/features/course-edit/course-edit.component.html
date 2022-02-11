@@ -1,4 +1,4 @@
-<div *ngIf="course" class="border border-info p-3">
+<div class="border border-info p-3">
     <form [formGroup]="courseEditForm" *ngIf="courseEditForm" (ngSubmit)="onFormSubmit()" class="course-form">
         <div class="course-edit-text">
             <div class="course-edit-title">
@@ -6,10 +6,16 @@
                 <input type="text" formControlName="title">
                 <span *ngIf="(f.title.dirty || f.title.touched) && f.title.errors?.required">Title is required</span>
             </div>
-
+            <div class="course-edit-btn d-flex align-items-end" [ngSwitch]="this.page">
+                <ng-template ngSwitchCase="CREATE">
+                    <app-button buttonText="Create course"></app-button>
+                </ng-template>
+                <ng-template ngSwitchCase="EDIT">
+                    <app-button buttonText="Save changes"></app-button>
+                </ng-template>
+            </div>
             <div class="course-edit-description">
                 <label class="fw-bold">Description</label>
-                <!-- <input type="text" formControlName="description"> -->
                 <textarea formControlName="description"></textarea>
                 <span
                     *ngIf="(f.description.dirty || f.description.touched) && f.description.errors?.required">Description
@@ -17,7 +23,6 @@
                     required</span>
             </div>
         </div>
-
         <div class="course-edit-info border border-dark p-3">
             <div class="course-edit-author">
                 <h2 class="text-center">
@@ -30,18 +35,16 @@
                 </span>
                 <button (click)="createAuthor()">Create author</button>
             </div>
-
             <div class="course-edit-duration">
                 <h2 class="text-center">
                     Duration
                 </h2>
                 <label class="fw-bold">Duration</label>
                 <input type="text" formControlName="duration">
-                <span *ngIf="f.duration">Duration: {{course.duration | duration}} </span>
+                <span *ngIf="f.duration">Duration: {{f.duration.value| duration}} </span>
                 <span *ngIf="(f.duration.dirty || f.duration.touched) && f.duration.errors?.required">Duration is
                     required</span>
             </div>
-
             <div class="course-edit-authors">
                 <h2 class="text-center">
                     Author list

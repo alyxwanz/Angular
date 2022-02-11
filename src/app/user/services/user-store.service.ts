@@ -28,7 +28,6 @@ export class UserStoreService {
         const isAdmin = user.role === 'admin';
         this.isAdmin$$.next(isAdmin);
         this.name$$.next(user.name);
-        console.log(user)
       })
     );
   }

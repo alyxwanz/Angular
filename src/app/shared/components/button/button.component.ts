@@ -11,8 +11,6 @@ export class ButtonComponent implements OnInit {
   @Input() iconName!: IconProp;
   @Output() notify = new EventEmitter<string>();
 
-  text = 'Show course';
-
   constructor() {}
 
   ngOnInit(): void {}

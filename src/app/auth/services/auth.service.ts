@@ -22,10 +22,15 @@ export class AuthService {
     private http: HttpClient,
     private sessionService: SessionStorageService,
     private router: Router,
-    private userStoreService: UserStoreService,
     private sessionStorageService: SessionStorageService
   ) {
+    this.checkIsAuthorized();
     this.isAuthorized$ = this.isAuthorized$$.asObservable();
+  }
+
+  checkIsAuthorized() {
+    const token = this.sessionStorageService.getToken();
+    token && this.isAuthorized$$.next(true);
   }
 
   login(name: string, email: string, password: string) {
@@ -40,8 +45,7 @@ export class AuthService {
           this.sessionService.setToken(response.result);
           this.isAuthorized$$.next(true);
           this.router.navigate(['/courses']);
-        }),
-        switchMap(() => this.userStoreService.getUser())
+        })
       );
   }
   logout() {
