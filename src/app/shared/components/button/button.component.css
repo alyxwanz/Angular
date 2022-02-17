@@ -1,10 +1,10 @@
 button {
     background: transparent;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
 }
 
 button:hover {
-    border: 2px solid #7d2ecf;
+    border: 1px solid #7d2ecf;
 }
 
 button:active {
@@ -13,5 +13,5 @@ button:active {
 }
 
 button:focus {
-    border: 2px solid #7d2ecf;
+    border: 1px solid #7d2ecf;
 }

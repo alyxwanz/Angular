@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { RegisterRequest } from 'src/app/interface/login-interface';
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +14,10 @@ export class RegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -32,6 +39,8 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
+    const value: RegisterRequest = this.registerForm.value;
+
+    this.authService.register(value).pipe(take(1)).subscribe();
   }
 }

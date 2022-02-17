@@ -1,0 +1,29 @@
+.form-group {
+    margin-bottom: 30px;
+}
+
+.registration-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 30% 1fr;
+    grid-template-rows: auto auto;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    justify-items: stretch;
+    grid-template-areas:
+        ". registration-title ."
+        ". registration-form .";
+}
+
+.registration-title {
+    grid-area: registration-title;
+}
+
+.registration-form {
+    grid-area: registration-form;
+}
+
+.invalid-input {
+    border-color: #dc3545;
+}

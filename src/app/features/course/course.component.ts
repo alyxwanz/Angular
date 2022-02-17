@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CourseCard } from '../../ mock';
+import { CourseCard } from '../../interface/courses-interface';
 
 @Component({
   selector: 'app-course',
@@ -8,9 +8,9 @@ import { CourseCard } from '../../ mock';
 })
 export class CourseComponent implements OnInit {
   @Input() courseCard!: CourseCard;
+  
 
   constructor() {}
 
   ngOnInit(): void {}
-
 }

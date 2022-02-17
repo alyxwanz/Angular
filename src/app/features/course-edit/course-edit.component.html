@@ -1,55 +1,65 @@
-<hr>
-<form [formGroup]="courseEditForm" (ngSubmit)="onFormSubmit()" class="course-form">
-    <div>
-        <label>Title</label>
-        <input type="text" formControlName="title">
-        <span *ngIf="(f.title.dirty || f.title.touched) && f.title.errors?.required">Title is required</span>
-    </div>
-
-    <div>
-        <label>Description</label>
-        <input type="text" formControlName="description">
-        <span *ngIf="(f.description.dirty || f.description.touched) && f.description.errors?.required">Description is
-            required</span>
-    </div>
-
-    <div class="course-wrapper">
-        <div class="course-author">
-            <h2>
-                Add authors
-            </h2>
-            <label>Author name</label>
-            <input type="text" formControlName="newAuthor">
-            <span *ngIf="(f.newAuthor.dirty || f.newAuthor.touched) && f.newAuthor.errors?.invalidAuthorName">
-                {{f.newAuthor.errors?.invalidAuthorName}}
-            </span>
-            <button (click)="createAuthor()">Create author</button>
+<div class="border border-info p-3">
+    <form [formGroup]="courseEditForm" *ngIf="courseEditForm" class="course-form">
+        <div class="course-edit-text">
+            <div class="course-edit-title">
+                <label class="fw-bold">Title</label>
+                <input type="text" formControlName="title">
+                <span *ngIf="(f.title.dirty || f.title.touched) && f.title.errors?.required">Title is required</span>
+            </div>
+            <div class="course-edit-btn d-flex align-items-end" [ngSwitch]="this.page">
+                <ng-template ngSwitchCase="CREATE">
+                    <app-button buttonText="Create course" (click)="onFormSubmit()"></app-button>
+                </ng-template>
+                <ng-template ngSwitchCase="EDIT">
+                    <app-button buttonText="Save changes"></app-button>
+                </ng-template>
+            </div>
+            <div class="course-edit-description">
+                <label class="fw-bold">Description</label>
+                <textarea formControlName="description"></textarea>
+                <span
+                    *ngIf="(f.description.dirty || f.description.touched) && f.description.errors?.required">Description
+                    is
+                    required</span>
+            </div>
         </div>
-
-        <div class="course-duration">
-            <h2>
-                Duration
-            </h2>
-            <label>Duration</label>
-            <input type="text" formControlName="duration">
-            <span *ngIf="(f.duration.dirty || f.duration.touched) && f.duration.errors?.required">Duration is
-                required</span>
+        <div class="course-edit-info border border-dark p-3">
+            <div class="course-edit-author">
+                <h2 class="text-center">
+                    Add authors
+                </h2>
+                <label class="fw-bold">Author name</label>
+                <input type="text" formControlName="newAuthor">
+                <span *ngIf="(f.newAuthor.dirty || f.newAuthor.touched) && f.newAuthor.errors?.invalidAuthorName">
+                    {{f.newAuthor.errors?.invalidAuthorName}}
+                </span>
+                <button (click)="createAuthor($event)">Create author</button>
+            </div>
+            <div class="course-edit-duration">
+                <h2 class="text-center">
+                    Duration
+                </h2>
+                <label class="fw-bold">Duration</label>
+                <input type="text" formControlName="duration">
+                <span *ngIf="f.duration">Duration: {{f.duration.value| duration}} </span>
+                <span *ngIf="(f.duration.dirty || f.duration.touched) && f.duration.errors?.required">Duration is
+                    required</span>
+            </div>
+            <div class="course-edit-authors">
+                <h2 class="text-center">
+                    Author list
+                </h2>
+                <ul formArrayName="authors">
+                    <li *ngFor="let author of authors.controls; let i = index">
+                        <span>
+                            {{author.value}}
+                        </span>
+                        <button (click)="deleteAuthor(i)">
+                            delete author
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <div class="course-authors">
-            <h2>
-                Author list
-            </h2>
-            <ul formArrayName="authors">
-                <li *ngFor="let author of authors.controls; let i = index">
-                    <span>
-                        {{author.value}}
-                    </span>
-                    <button (click)="deleteAuthor(i)">
-                        delete author
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</form>
+    </form>
+</div>

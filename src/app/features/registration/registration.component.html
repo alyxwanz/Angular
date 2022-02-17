@@ -1,22 +1,38 @@
-<hr>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" required formControlName="name" name="name">
-        <span *ngIf="(f.name.dirty || f.name.touched) && f.name.errors?.minlength">Name is too short</span>
-        <span *ngIf="(f.name.dirty || f.name.touched) && f.name.errors?.required">Name is required</span>
-    </div>
+<div class="registration-wrapper border border-info p-2">
+    <h2 class="registration-title text-center">
+        registration
+    </h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="registration-form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required formControlName="name" name="name"
+                [ngClass]="{'invalid-input': ((f.name.dirty || f.name.touched) && f.name.errors?.minlength) || ((f.name.dirty || f.name.touched) && f.name.errors?.required) }">
+            <span *ngIf="(f.name.dirty || f.name.touched) && f.name.errors?.minlength" class="text-danger">Name
+                is too short</span>
+            <span *ngIf="(f.name.dirty || f.name.touched) && f.name.errors?.required" class="text-danger">Name
+                is required</span>
+        </div>
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required name="email" formControlName="email"
-            appEmailValidator>
-        <span *ngIf="(f.email.touched || f.email.dirty) && f.email.errors?.invalidEmail">{{f.email.errors?.invalidEmail}}</span>
-    </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" required name="email" formControlName="email"
+                appEmailValidator>
+            <span *ngIf="(f.email.touched || f.email.dirty) && f.email.errors?.invalidEmail"
+                class="text-danger">{{f.email.errors?.invalidEmail}}</span>
+        </div>
 
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password" required name="password" appPasswordToggle #appPasswordToggle="appPasswordToggle">
-        <button (click)="appPasswordToggle.onClick()">Password toggle</button>
-    </div>
-</form>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" required
+                name="password" appPasswordToggle #appPasswordToggle="appPasswordToggle">
+            <span *ngIf="(f.passworddirty || f.password.touched) && f.password.errors?.required"
+                class="text-danger">Password
+                is required</span>
+            <button (click)="appPasswordToggle.onClick()">Password toggle</button>
+        </div>
+        <button type="submit"> Save</button>
+        <span>
+            If you have an account you can <a [routerLink]="['/login']">Login</a>
+        </span>
+    </form>
+</div>

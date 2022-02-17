@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CreationDatePipe extends DatePipe implements PipeTransform {
   transform(date: any, args?: any): any {
-    return super.transform(date, "d.MM.yyyy");
+    return super.transform(new Date(date), 'd.MM.yyyy');
   }
 }

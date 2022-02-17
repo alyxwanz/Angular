@@ -1,32 +1,11 @@
-header {
-    padding: 20px;
-    border: 2px solid #e16165;
-    margin-bottom: 20px;
+.logo-wrapper {
+    background-color: rgb(38, 38, 38);
 }
 
-nav {
-    display: flex;
+.nav-menu {
+    width: auto;
 }
 
-.logo {
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.logo-img {
-    width: 50px;
-    position: absolute;
-    left: 5px;
-}
-
-.logo-text {
-    display: block;
-    width: 124px;
-    padding: 6px 10px;
-    text-align: right;
-    text-transform: uppercase;
-    color: white;
-    background-color: #292929;
+.logo-item {
+    width: auto;
 }
