@@ -6,8 +6,8 @@
         <app-course [courseCard]='course'>
             <app-button buttonText="Show course" (notify)="onDisplay(course.id)"></app-button>
             <ng-container *ngIf="isAdmin$ | async">
-                <app-button [iconName]="faEdit" (notify)="onEdit()"></app-button>
-                <app-button [iconName]="faTrash" (notify)="onDelete()"></app-button>
+                <app-button [iconName]="faEdit" (notify)="onEdit(course.id)"></app-button>
+                <app-button [iconName]="faTrash" (notify)="onDelete(course.id)"></app-button>
             </ng-container>
         </app-course>
     </div>

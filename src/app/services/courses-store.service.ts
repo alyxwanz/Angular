@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Course, CourseCreate } from '../interface/courses-interface';
+import { AuthorsStoreService } from './authors-store.service';
 import { CoursesService } from './courses.service';
 
 @Injectable({
@@ -14,7 +15,10 @@ export class CoursesStoreService {
   private isLoading$$ = new BehaviorSubject<boolean>(false);
   private courses$$ = new BehaviorSubject<Course[]>([]);
 
-  constructor(private courseService: CoursesService) {
+  constructor(
+    private courseService: CoursesService,
+    private authorsStoreService: AuthorsStoreService
+  ) {
     this.initProps();
   }
 
@@ -26,7 +30,22 @@ export class CoursesStoreService {
   getAll() {
     this.isLoading$$.next(true);
     return this.courseService.getAll().pipe(
-      map((courses) => this.courses$$.next(courses)),
+      switchMap((courses) => {
+        return forkJoin([this.authorsStoreService.getAll(), of(courses)]);
+      }),
+      map(([authorsList, courses]) => {
+        this.courses$$.next(courses);
+
+        return courses.map((course) => {
+          const authors: string[] = authorsList
+            .filter((author) => course.authors.find((a) => a === author.id))
+            .map((author) => {
+              return author.name;
+            });
+          return { ...course, authors };
+        });
+      }),
+      tap((courses) => this.courses$$.next(courses)),
       finalize(() => this.isLoading$$.next(false))
     );
   }

@@ -1,5 +1,5 @@
 <div class="border border-info p-3">
-    <form [formGroup]="courseEditForm" *ngIf="courseEditForm" (ngSubmit)="onFormSubmit()" class="course-form">
+    <form [formGroup]="courseEditForm" *ngIf="courseEditForm" class="course-form">
         <div class="course-edit-text">
             <div class="course-edit-title">
                 <label class="fw-bold">Title</label>
@@ -8,7 +8,7 @@
             </div>
             <div class="course-edit-btn d-flex align-items-end" [ngSwitch]="this.page">
                 <ng-template ngSwitchCase="CREATE">
-                    <app-button buttonText="Create course"></app-button>
+                    <app-button buttonText="Create course" (click)="onFormSubmit()"></app-button>
                 </ng-template>
                 <ng-template ngSwitchCase="EDIT">
                     <app-button buttonText="Save changes"></app-button>
@@ -33,7 +33,7 @@
                 <span *ngIf="(f.newAuthor.dirty || f.newAuthor.touched) && f.newAuthor.errors?.invalidAuthorName">
                     {{f.newAuthor.errors?.invalidAuthorName}}
                 </span>
-                <button (click)="createAuthor()">Create author</button>
+                <button (click)="createAuthor($event)">Create author</button>
             </div>
             <div class="course-edit-duration">
                 <h2 class="text-center">

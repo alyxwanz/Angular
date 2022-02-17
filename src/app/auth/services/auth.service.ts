@@ -24,7 +24,6 @@ export class AuthService {
     private router: Router,
     private sessionStorageService: SessionStorageService
   ) {
-    this.checkIsAuthorized();
     this.isAuthorized$ = this.isAuthorized$$.asObservable();
   }
 

@@ -4,6 +4,6 @@ export interface AuthorsResponse {
 }
 
 export interface Author {
-  id: string;
   name: string;
+  id: string;
 }

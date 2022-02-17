@@ -28,6 +28,8 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(switchMap(() => this.userStoreService.getUser()))
       .subscribe();
     this.subscriptions.add(subs);
+
+    this.authService.checkIsAuthorized();
   }
 
   ngOnDestroy(): void {

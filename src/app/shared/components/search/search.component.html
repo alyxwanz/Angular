@@ -1,7 +1,7 @@
 <div class="container-fluid p-0 mb-4">
-    <form class="d-flex" (ngSubmit)="onSubmit()">
+    <form class="d-flex align-items-center" (ngSubmit)="onSubmit()">
         <input class="form-control me-2" type="search" [placeholder]="searchRequest" aria-label="Search"
             [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
-        <button class="btn btn-outline-success" type="submit" (click)="searchQuery()">Search</button>
+        <app-button buttonText="Search"></app-button>
     </form>
 </div>

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
@@ -25,22 +24,44 @@ export class AuthorsStoreService {
     this.authors$ = this.authors$$.asObservable();
   }
 
-  getAll() {
+  getAll(): Observable<Author[]> {
     this.isLoading$$.next(true);
-
-    this.authorService.getAll().pipe(
-      map((authors) => this.authors$$.next(authors)),
-      finalize(() => this.isLoading$$.next(false))
+    return this.authorService.getAll().pipe(
+      tap((authors) => this.authors$$.next(authors)),
+      finalize(() => this.isLoading$$.next(false))  
     );
   }
 
   addAuthor(name: string) {
     this.isLoading$$.next(true);
-
-    this.authorService.addAuthor(name).pipe(
-      //TODO: check responce
+    return this.authorService.addAuthor(name).pipe(
       map((authors) => this.authors$$.next(authors)),
       finalize(() => this.isLoading$$.next(false))
     );
+  }
+
+  editAuthor(name: string, id: string) {
+    this.isLoading$$.next(true);
+    return this.authorService.editAuthor(name, id).pipe(
+      // map((author) => this.authors$$.next(author)),
+      tap((responce) => {
+        console.log(responce);
+      }),
+      finalize(() => this.isLoading$$.next(false))
+    );
+  }
+
+  getAuthor(id: string) {
+    this.isLoading$$.next(true);
+    return this.authorService
+      .getAuthor(id)
+      .pipe(finalize(() => this.isLoading$$.next(false)));
+  }
+
+  deleteAuthor(id: string) {
+    this.isLoading$$.next(true);
+    return this.authorService
+      .deleteAuthor(id)
+      .pipe(finalize(() => this.isLoading$$.next(false)));
   }
 }

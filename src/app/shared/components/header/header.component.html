@@ -13,12 +13,11 @@
     <div class="nav-menu col-md-3 text-end">
         <ng-container *ngIf="isAuthorized$ | async; else notAuthorizedBlock">
             <span>{{name$ | async}}</span>
-            <button (click)="logout()">Logout</button>
+            <app-button (click)="logout()" buttonText="Logout"></app-button>
         </ng-container>
         <ng-template #notAuthorizedBlock>
-            <button type="button" class="btn btn-outline-primary me-2" [routerLink]="['/login']"
-                routerLinkActive="router-link-active">Login</button>
-            <button type="button" class="btn btn-primary" [routerLink]="['/registration']">Sign-up</button>
+            <app-button buttonText="Login" [routerLink]="['/login']"></app-button>
+            <app-button buttonText="Sign-up" [routerLink]="['/registration']"></app-button>
         </ng-template>
     </div>
 </header>

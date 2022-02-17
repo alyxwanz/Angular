@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { CourseCard } from '../../interface/courses-interface';
 
 @Component({

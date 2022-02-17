@@ -21,4 +21,16 @@ export class AuthorsService {
   addAuthor(name: string): Observable<any> {
     return this.http.post(`${this.BASE}/authors/add`, { name });
   }
+
+  editAuthor(name: string, id: string) {
+    return this.http.put(`${this.BASE}/authors/${id}`, { name });
+  }
+
+  getAuthor(id: string) {
+    return this.http.get(`${this.BASE}/authors/${id}`);
+  }
+
+  deleteAuthor(id: string) {
+    return this.http.delete(`${this.BASE}/authors/${id}`);
+  }
 }

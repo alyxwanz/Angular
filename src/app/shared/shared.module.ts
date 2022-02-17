@@ -12,6 +12,7 @@ import { CreationDatePipe } from './pipes/creation-date.pipe';
 import { StringJoinerPipe } from './pipes/string-joiner.pipe';
 import { PasswordToggleDirective } from './directives/password-toggle.directive';
 import { RouterModule } from '@angular/router';
+import { ModalComponent } from './components/modal/modal.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -22,7 +23,8 @@ const COMPONENTS = [
   DurationPipe,
   CreationDatePipe,
   StringJoinerPipe,
-  PasswordToggleDirective
+  PasswordToggleDirective,
+  ModalComponent
 ];
 
 @NgModule({
